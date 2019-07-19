@@ -46,4 +46,4 @@ class ModelTest(TestCase):
 
         self.assertEqual(recv_comment.post, recv_post)
         self.assertEqual(recv_comment.body, self.get_model_data_comment()['body'])
-        
+
