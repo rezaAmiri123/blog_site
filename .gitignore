@@ -65,6 +65,6 @@ readme.txt
 /certs
 doc-*
 .idea/
-static
+#static
 *.sqlite
 tmp/
