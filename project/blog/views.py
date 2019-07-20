@@ -65,13 +65,13 @@ def post_detail(request, year, month, day, slug):
     similar_posts = similar_posts.annotate(same_tags=Count('tags'))\
                                  .order_by('-same_tags', '-created')[:4]
 
-    render(request,
-           'blog/post/detail.html',
-           {'post': post,
-            'comments': comments,
-            'new_comment': new_comment,
-            'comment_form': comment_form,
-            'similar_posts': similar_posts})
+    return render(request,
+                   'blog/post/detail.html',
+                   {'post': post,
+                    'comments': comments,
+                    'new_comment': new_comment,
+                    'comment_form': comment_form,
+                    'similar_posts': similar_posts})
 
 
 class PostListView(generic.ListView):
@@ -117,8 +117,8 @@ def post_search(request):
             results = Post.objects.annotate(similarity=TrigramSimilarity('title', query))\
                             .filter(similarity__gt=0.3)\
                             .order_by('-similarity')
-        return render(request,
-                      'blog/post/search.html',
-                      {'query': query,
-                       'form': form,
-                       'results': results})
+    return render(request,
+                  'blog/post/search.html',
+                  {'query': query,
+                   'form': form,
+                   'results': results})

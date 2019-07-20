@@ -38,14 +38,14 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
-    """
+
     def get_absolute_url(self):
         return reverse('blog:post_detail',
                        args=[self.created.year,
                              self.created.month,
                              self.created.day,
                              self.slug])
-    """
+
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.title)
