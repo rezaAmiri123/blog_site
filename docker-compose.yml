@@ -1,7 +1,23 @@
 version: '3'
 
 services:
-  database1: # <-- IMPORTANT: same name as in DATABASE setting, otherwise Django won't find the database!
+
+  nginx:
+    image: nginx
+    ports:
+      - 80:80
+    # command: bash -c 'nginx -g "daemon off;"'
+    volumes:
+      - ./config/nginx/conf.d:/etc/nginx/conf.d
+      - static_volume:/opt/services/djangoapp/src/project/static # <-- bind the static volume
+      - media_volume:/opt/services/djangoapp/src/project/media   # <-- bind the media volume
+    depends_on:
+      - djangoapp
+    networks:
+      - nginx_network
+
+
+  database1: # <-- IMPORTANT: same name as in DATABASE setting, otherwise Django won't find the database!  
     image: postgres
     env_file: # <-- we use the previously defined values
       - config/db/database1_env
@@ -11,8 +27,8 @@ services:
       - database1_volume:/var/lib/postgresql/data
 
   djangoapp:
-    build: .
-    # image: site_blog
+    # build: .
+    image: site_blog
     command: sh run/run_web.sh
     volumes:
       - .:/opt/services/djangoapp/src
@@ -23,18 +39,6 @@ services:
       - database1_network # <-- connect to bridge 
     depends_on: # <-- wait for db to be 'ready' before starting the app
       - database1
-  nginx:
-    image: nginx
-    ports:
-      - 8000:80
-    volumes:
-      - ./config/nginx/conf.d:/etc/nginx/conf.d
-      - static_volume:/opt/services/djangoapp/src/project/static # <-- bind the static volume
-      - media_volume:/opt/services/djangoapp/src/project/media   # <-- bind the media volume
-    depends_on:
-      - djangoapp
-    networks:
-      - nginx_network
   
 networks:
   nginx_network:
