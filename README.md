@@ -11,6 +11,8 @@ This project has been covered some section, for example:
 The backend section covers some section, for example:
 1 - sitemap
 2 - feed
-3 - 
+3 - It has Action app to save users actions
+4 - It has Account app to register users and working with profile managment
+5 - It has blog app to create some post and comment 
 The project is't complete and I'm working to add something to that
 
