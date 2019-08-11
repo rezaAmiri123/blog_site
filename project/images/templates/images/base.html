@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
+    <div id="images" class="images">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <script src="{% static 'ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js' %}"></script>
+    <script src="{% static 'cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js' %}"></script>
+
+    <script>
+        var csrftoken = Cookies.get('csrftoken');
+        function csrfSafeMethod(method) {
+            // These HTTP method s do not require CSRF protection
+            return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+        }
+        $.ajaxSetup({
+            beforeSend: function (xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+        $(document).ready(function () {
+            {% block domready %}
+            {% endblock %}
+        });
+    </script>
+</body>
+</html>
