@@ -1,5 +1,20 @@
 version: '3'
 services:
+  djangoapp:
+    build: .
+    # image: site_blog
+    command: sh run/run_web.sh
+    volumes:
+      - .:/opt/services/djangoapp/src
+      - static_volume:/opt/services/djangoapp/src/project/static # <-- bind the static volume
+      - media_volume:/opt/services/djangoapp/src/project/media  # <--  bind the media volume
+    networks:
+      - nginx_network
+      - database1_network # <-- connect to bridge 
+      - redis_network
+    depends_on: # <-- wait for db to be 'ready' before starting the app
+      - database1
+
 
   nginx:
     image: nginx
@@ -24,21 +39,6 @@ services:
       - database1_network
     volumes:
       - database1_volume:/var/lib/postgresql/data
-
-  djangoapp:
-    build: .
-    # image: site_blog
-    command: sh run/run_web.sh
-    volumes:
-      - .:/opt/services/djangoapp/src
-      - static_volume:/opt/services/djangoapp/src/project/static # <-- bind the static volume
-      - media_volume:/opt/services/djangoapp/src/project/media  # <--  bind the media volume
-    networks:
-      - nginx_network
-      - database1_network # <-- connect to bridge 
-      - redis_network
-    depends_on: # <-- wait for db to be 'ready' before starting the app
-      - database1
 
   redis:
     image: redis
