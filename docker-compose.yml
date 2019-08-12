@@ -5,7 +5,7 @@ services:
     image: site_blog
     command: sh run/run_web.sh
     volumes:
-      - .:/opt/services/djangoapp/src
+            #- .:/opt/services/djangoapp/src
       - static_volume:/opt/services/djangoapp/src/project/static # <-- bind the static volume
       - media_volume:/opt/services/djangoapp/src/project/media  # <--  bind the media volume
     networks:
@@ -22,7 +22,7 @@ services:
       - 80:80
     # command: bash -c 'nginx -g "daemon off;"'
     volumes:
-      - ./config/nginx/conf.d:/etc/nginx/conf.d
+            #- ./config/nginx/conf.d:/etc/nginx/conf.d
       - static_volume:/opt/services/djangoapp/src/project/static # <-- bind the static volume
       - media_volume:/opt/services/djangoapp/src/project/media   # <-- bind the media volume
     depends_on:
