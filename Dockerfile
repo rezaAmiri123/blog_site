@@ -3,11 +3,11 @@ FROM python:3.7-slim
 
 # arbitrary location choice: you can change the directory
 RUN mkdir -p /opt/services/djangoapp/src
-WORKDIR /opt/services/djangoapp/src
 
 # copy our project code
 COPY . /opt/services/djangoapp/src
 
+WORKDIR /opt/services/djangoapp/src
 # install django app requirements
 RUN pip install -r requirements.txt
 
