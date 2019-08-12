@@ -45,8 +45,8 @@ jobs:
           name: Install Docker client
           command: |
             set -x
-            # VER="17.03.0-ce"
-            VER="19.03.1-ce"
+            VER="17.03.0-ce"
+            # VER="19.03.1-ce"
             curl -L -o /tmp/docker-$VER.tgz https://get.docker.com/builds/Linux/x86_64/docker-$VER.tgz
             tar -xz -C /tmp -f /tmp/docker-$VER.tgz --overwrite
             sudo cp -Rf /tmp/docker/* /usr/bin 
@@ -55,8 +55,8 @@ jobs:
           name: Install Docker Compose
           command: |
             set -x
-            # sudo curl -L https://github.com/docker/compose/releases/download/1.11.2/docker-compose-`uname -s`-`uname -m` > docker-compose
-            sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` > docker-compose
+            sudo curl -L https://github.com/docker/compose/releases/download/1.11.2/docker-compose-`uname -s`-`uname -m` > docker-compose
+            # sudo curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` > docker-compose
             sudo mv -f docker-compose /usr/local/bin/docker-compose
             sudo chmod +x /usr/local/bin/docker-compose
 
@@ -75,7 +75,7 @@ jobs:
             # docker run --network container:contacts \
             #  appropriate/curl --retry 10 --retry-delay 1 --retry-connrefused http://localhost:8080/contacts/test
             ls
-            docker-compose run  djangoapp /bin/bash -c "ls;cd project;ls  ;python manage.py migrate"
+            docker-compose run  djangoapp /bin/bash -c "ls;pwd;ls /opt/services/djangoapp/src;cd project;ls  ;python manage.py migrate"
             docker-compose run  djangoapp /bin/bash -c "cd project;python manage.py collectstatic --no-input"
             docker-compose run --rm djangoapp /bin/bash -c "cd project; python manage.py test"
 
