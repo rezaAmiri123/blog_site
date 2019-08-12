@@ -1,8 +1,8 @@
 version: '3'
 services:
   djangoapp:
-    build: .
-    # image: site_blog
+    # build: .
+    image: site_blog
     command: sh run/run_web.sh
     volumes:
       - .:/opt/services/djangoapp/src
