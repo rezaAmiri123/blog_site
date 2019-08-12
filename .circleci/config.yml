@@ -58,9 +58,9 @@ jobs:
             sudo mv -f docker-compose /usr/local/bin/docker-compose
             sudo chmod +x /usr/local/bin/docker-compose
 
-      - run:
-          name: Build service
-          command: sudo make
+            #      - run:
+            # name: Build service
+            #command: sudo make
 
       - run:
           name: Start container and verify it's working
