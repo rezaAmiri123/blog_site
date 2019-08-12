@@ -66,12 +66,13 @@ jobs:
           name: Start container and verify it's working
           command: |
             set -x
-            docker-compose build 
+            # docker build . -t djangoapp
             # docker-compose will start 2 containers, the one with service will be named `contacts`
             # we start another container with curl in the same network as `contacts`, this way we have
             # all exposed ports from `contacts` available on `localhost` in this new container
             # docker run --network container:contacts \
             #  appropriate/curl --retry 10 --retry-delay 1 --retry-connrefused http://localhost:8080/contacts/test
+            ls
             docker-compose run  djangoapp /bin/bash -c "ls;cd project;ls  ;python manage.py migrate"
             docker-compose run  djangoapp /bin/bash -c "cd project;python manage.py collectstatic --no-input"
             docker-compose run --rm djangoapp /bin/bash -c "cd project; python manage.py test"
