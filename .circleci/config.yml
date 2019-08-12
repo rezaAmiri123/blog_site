@@ -3,7 +3,7 @@ jobs:
   build:
     docker:
       # specify the version you desire here
-      - image: nginx
+      - image: circleci/python:3.6.1
 
 
     working_directory: ~/repo
