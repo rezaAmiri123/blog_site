@@ -27,5 +27,7 @@ The backend section covers some section, for example:
 
 6 - There is a Images app that has bookmark. It can collect and save images in app
 
+7 - There is a social app that It can use to have a authentication backend
+
 The project is't complete and I'm working to add something to that
 
