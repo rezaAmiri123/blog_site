@@ -77,9 +77,9 @@ jobs:
             docker build . -t site_blog
             ls
             pwd
-            docker-compose run  djangoapp /bin/bash -c "ls;pwd;ls /opt/services/djangoapp/src;cd project;ls  ;python manage.py --settings=config.pro migrate"
-            docker-compose run  djangoapp /bin/bash -c "cd project;python manage.py collectstatic --settings=config.pro --no-input"
-            docker-compose run --rm djangoapp /bin/bash -c "cd project; coverage run --source='.'   manage.py t--settings=config.pro test"
+            docker-compose run  djangoapp /bin/bash -c "ls;pwd;ls /opt/services/djangoapp/src;cd project;ls  ;python manage.py  migrate"
+            docker-compose run  djangoapp /bin/bash -c "cd project;python manage.py collectstatic  --no-input"
+            docker-compose run --rm djangoapp /bin/bash -c "cd project; coverage run --source='.'  manage.py test  "
             docker-compose run --rm djangoapp /bin/bash -c "cd project; coverage report"
 
 
