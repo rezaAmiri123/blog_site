@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, reverse, redirect
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -126,3 +126,19 @@ def user_follow(request):
             return JsonResponse({'status': 'ko'})
     return JsonResponse({'status': 'ko'})
 
+"""
+# This is for test section
+def delete_test_user(request):
+    if request.method == 'GET':
+        num = request.GET.get('num', 1)
+        username = 'username_{}'.format(num)
+        email = 'email_{}.example.com'.format(num)
+        try:
+            # user = User.objects.get(username=username)
+            User.objects.filter(username__contains='username_').delete()
+            # user.delete()
+            return HttpResponse('user has been deleted')
+        except User.DoesNotExist:
+            return HttpResponseBadRequest('user not found')
+
+"""
