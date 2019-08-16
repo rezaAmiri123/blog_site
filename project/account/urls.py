@@ -1,7 +1,7 @@
 from django.urls import path, include
 from django.contrib.auth import views as auth_views
 from . import views
-from .api.views import TestUserDelete
+
 
 
 
@@ -26,8 +26,7 @@ urlpatterns = [
     path('users/<username>/', views.user_detail, name='user_detail'),
 
 ]
-"""
+
 urlpatterns += [
-    path('test/delete/user/', views.delete_test_user, name='delete_test_user'),
+    path('api/', include('account.api.urls')),
 ]
-"""

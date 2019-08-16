@@ -13,6 +13,8 @@ This project has been covered some section, for example:
 
 5 - postgres for database server
 
+6 - Gunicron is used for wsgi server
+
 The backend section covers some section, for example:
 
 1 - sitemap
@@ -30,4 +32,4 @@ The backend section covers some section, for example:
 7 - There is a social app that It can use to have a authentication backend
 
 The project is't complete and I'm working to add something to that
-
+I'm trying to add api to apps.

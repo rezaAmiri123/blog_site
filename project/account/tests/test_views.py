@@ -2,6 +2,7 @@ import base64
 import json
 from django.test import TestCase, Client
 from .. import views
+from ..models import Contact
 from django.urls import reverse
 from selenium import webdriver
 from django.conf import settings
@@ -116,6 +117,11 @@ class ViewTest(TestCase):
         self.assertEqual(user2.following.count(), 0)
         self.assertEqual(user1.following.count(), 1)
 
+        follow_data = Contact.objects.get(user_from=user1,
+                                          user_to=user2)
+        text = '{} follow {}'.format(user1.username, user2.username)
+        self.assertEqual(follow_data.__str__(), text)
+
         # having a test that user1 is unfollowing user2
         data = {
             'id': user2.id,
@@ -129,7 +135,6 @@ class ViewTest(TestCase):
         self.assertEqual(user1.followers.count(), 0)
         self.assertEqual(user2.following.count(), 0)
         self.assertEqual(user1.following.count(), 0)
-
 
     def test_user_invalid_follow(self):
         self.login()
@@ -160,6 +165,29 @@ class ViewTest(TestCase):
                                 format='json',
                                 HTTP_X_REQUESTED_WITH='XMLHttpRequest')
         self.assertContains(resp, 'ko')
+
+    def test_authentication_with_email(self):
+        u1 = self.get_user_data()
+        username = u1['email']
+        password = u1['password']
+        login = self.client.login(username=username, password=password)
+        self.assertTrue(login)
+        path = reverse('user_list')
+        resp = self.client.get(path)
+
+    def test_authentication_failed_with_email(self):
+        u1 = self.get_user_data()
+        # with wrong email
+        username = u1['email'] + '.wrong'
+        password = u1['password']
+        login = self.client.login(username=username, password=password)
+        self.assertFalse(login)
+
+        # with wrong password
+        username = u1['email']
+        password = u1['password'] + 'wrong'
+        login = self.client.login(username=username, password=password)
+        self.assertFalse(login)
 
 
 """

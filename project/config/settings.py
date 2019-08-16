@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'images',
     'social_django',
+    'rest_framework',
 
 ]
 
@@ -170,3 +171,14 @@ SOCIAL_AUTH_TWITTER_SECRET = '' # Twitter Consumer Secret
 
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '' # Google Consumer Key
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = '' # Google Consumer Secret
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ),
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
+    'PAGE_SIZE': 2,
+    # 'DEFAULT_CONTENT_NEGOTIATION_CLASS': 'music.negotiation.IgnoreClientContentNegotiation',
+
+}
