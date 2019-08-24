@@ -48,7 +48,9 @@ INSTALLED_APPS = [
     'images',
     'social_django',
     'rest_framework',
-
+    'search',
+    'django_elasticsearch_dsl',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -181,4 +183,10 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 2,
     # 'DEFAULT_CONTENT_NEGOTIATION_CLASS': 'music.negotiation.IgnoreClientContentNegotiation',
 
+}
+
+ELASTICSEARCH_DSL = {
+    'default': {
+        'hosts': 'elasticsearch:9200'
+    },
 }

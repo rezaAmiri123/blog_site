@@ -34,6 +34,7 @@ urlpatterns = [
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps},
          name='django.contrib.sitemaps.views.sitemap'),
     path('api-root/', include('rest_framework.urls')),
+    path('search/', include('search.urls', namespace='search')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL,

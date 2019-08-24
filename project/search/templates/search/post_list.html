@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load i18n crispy_forms_tags  %}
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form method="get" action="{{ request.path }}">
+        {% crispy form %}
+        <button type="submit">Search</button>
+    </form>
+    {% for post in object_list %}
+        {% if post.meta.highlight.title %}
+            {% for fragment in post.meta.highlight.title %}
+                {{ fragment|safe }}
+            {% endfor %}
+        {% else %}
+            {{ post.title }}<br>
+        {% endif %}
+    {% endfor %}
+</body>
+</html>
