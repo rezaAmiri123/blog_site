@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'images',
     'social_django',
     'rest_framework',
-    'search',
+    'search.apps.SearchConfig',
     'django_elasticsearch_dsl',
     'crispy_forms',
 ]
